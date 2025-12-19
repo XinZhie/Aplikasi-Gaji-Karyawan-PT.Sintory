@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="GajiReport" 
+              language="groovy" 
+              pageWidth="595" pageHeight="842" 
+              columnWidth="535" 
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+              whenNoDataType="AllSectionsNoDetail"
+              uuid="18513309-425f-4184-8f72-f1e91ab0f197">
+    
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    
+    <style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+    <style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+    <style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+    <style name="Detail" fontName="Arial" fontSize="12"/>
+
+    <parameter name="paramOpsi" class="java.lang.String">
+        <defaultValueExpression><![CDATA["Semua"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="paramKtp" class="java.lang.String">
+        <defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+    </parameter>
+    <parameter name="paramRuang" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+    </parameter>
+
+    <queryString language="SQL">
+        <![CDATA[
+        SELECT * FROM tbgaji 
+        WHERE 
+        ($P{paramOpsi} = 'Semua') 
+        OR 
+        ($P{paramOpsi} = 'KTP' AND ktp = $P{paramKtp})
+        ]]>
+    </queryString>
+
+    <field name="ktp" class="java.lang.String">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="kodepekerjaan" class="java.lang.String">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="gajibersih" class="java.math.BigDecimal">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="gajikotor" class="java.math.BigDecimal">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="tunjangan" class="java.math.BigDecimal">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+
+    <title>
+        <band height="70" splitType="Stretch">
+            <staticText>
+                <reportElement style="Title" forecolor="#000000" x="0" y="5" width="263" height="33" uuid="028be74a-8dc7-499a-bc5c-8dad553ddcab"/>
+                <textElement verticalAlignment="Middle"/>
+                <text><![CDATA[Laporan Gaji]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="SubTitle" x="63" y="39" width="489" height="22" forecolor="#000000" uuid="55d21b15-aef7-433d-b393-15e9d341f61e"/>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Data Penggajian Karyawan]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <pageHeader>
+        <band splitType="Stretch"/>
+    </pageHeader>
+
+    <columnHeader>
+        <band height="36" splitType="Stretch">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="dcf5f9f7-814d-4645-8270-4e75ea9a5158"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#999999"/>
+                </graphicElement>
+            </line>
+            <staticText>
+                <reportElement style="Column header" x="0" y="19" width="111" height="15" uuid="487f2adc-92b8-4200-a932-e337f63a236a"/>
+                <text><![CDATA[KTP]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="111" y="19" width="111" height="15" uuid="3f1bb8cb-f32f-4855-916a-d64cce8f2be1"/>
+                <text><![CDATA[Kode Pek.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="222" y="19" width="111" height="15" uuid="4ffe8a0b-2252-4a12-a660-afa5f71d3c3f"/>
+                <text><![CDATA[Gaji Bersih]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="333" y="19" width="111" height="15" uuid="b0872b31-7447-4759-a3ff-83ccf2d89aab"/>
+                <text><![CDATA[Gaji Kotor]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="444" y="19" width="111" height="15" uuid="8ad2597c-6804-4850-bd57-c1e302c31bfd"/>
+                <text><![CDATA[Tunjangan]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="16" splitType="Stretch">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="682c79df-04ad-4b0f-894c-a1ffa91e5770"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#999999"/>
+                </graphicElement>
+            </line>
+            <textField>
+                <reportElement style="Detail" x="0" y="0" width="111" height="15" uuid="913402d5-1b2a-4330-92b3-828d2aa45b97"/>
+                <textFieldExpression><![CDATA[$F{ktp}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement style="Detail" x="111" y="0" width="111" height="15" uuid="475cb0eb-216f-4c24-93bf-2dfdbabcbe66"/>
+                <textFieldExpression><![CDATA[$F{kodepekerjaan}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement style="Detail" x="222" y="0" width="111" height="15" uuid="ebcca9de-4095-465b-b5a0-212be9533afd"/>
+                <textFieldExpression><![CDATA[$F{gajibersih}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement style="Detail" x="333" y="0" width="111" height="15" uuid="c43251c5-8167-4b27-bfd7-4ff3c2e2e2b1"/>
+                <textFieldExpression><![CDATA[$F{gajikotor}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement style="Detail" x="444" y="0" width="111" height="15" uuid="5409f5b0-2623-4d2d-9106-3add7fd040f6"/>
+                <textFieldExpression><![CDATA[$F{tunjangan}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <columnFooter>
+        <band height="45" splitType="Stretch">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="b4f20a44-0878-4ba2-9bdf-ef07ef3b4152"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#999999"/>
+                </graphicElement>
+            </line>
+        </band>  </columnFooter>
+
+    <pageFooter>
+        <band height="20" splitType="Stretch">
+            <textField>
+                <reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="d298f783-0670-474b-b092-86568e67cf96"/>
+                <textElement textAlignment="Right">
+                    <font size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="336ee391-9d3d-4070-848c-5d9fa42f5c83"/>
+                <textElement>
+                    <font size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="821b3602-0955-4059-aed9-685b7707cedc"/>
+                <textElement>
+                    <font size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band splitType="Stretch"/>
+    </summary>
+</jasperReport>
